@@ -1,7 +1,7 @@
 class Cell {
   isBomb = false
   value = 0
-  isRevealed = false
+  isRevealed = true
 }
 
 export class Game {
@@ -68,5 +68,8 @@ export class Game {
     return start + Math.round(Math.random() * end)
   }
 
-  turn(x, y) {}
+  turn(x, y) {
+    this.field[x][y].isRevealed = true
+    console.log('turn', this.field[x][y])
+  }
 }

@@ -12,13 +12,24 @@ const numberColors = [
   '#808080'
 ]
 
-export const Cell = ({ cell }) => (
+export const Cell = ({ cell, onClick }) => (
   <div
-    className="cell"
+    className={`cell ${cell.isRevealed ? 'revealed' : ''}`}
     style={{
       color: numberColors[cell.value]
     }}
+    onClick={onClick}
   >
-    {cell.isBomb ? <span>💣</span> : cell.value ? cell.value : ''}
+    {cell.isRevealed ? (
+      cell.isBomb ? (
+        <span>💣</span>
+      ) : cell.value ? (
+        cell.value
+      ) : (
+        ''
+      )
+    ) : (
+      ''
+    )}
   </div>
 )
