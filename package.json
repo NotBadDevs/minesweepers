@@ -1,0 +1,26 @@
+{
+  "name": "minesweeper",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.ts",
+  "scripts": {
+    "start": "parcel index.html",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "mnesov",
+  "license": "MIT",
+  "devDependencies": {
+    "parcel-bundler": "^1.12.0",
+    "prettier": "^1.16.4",
+    "typescript": "^3.3.3333"
+  },
+  "dependencies": {
+    "@types/react": "^16.8.7",
+    "@types/react-dom": "^16.8.2",
+    "ramda": "^0.26.1",
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4",
+    "recompose": "^0.30.0"
+  }
+}

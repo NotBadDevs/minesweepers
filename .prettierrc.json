@@ -1,0 +1,5 @@
+{
+  "semi": false,
+  "singleQuote": true,
+  "files": "*.js,*.ts,*.tsx,*.css"
+}
