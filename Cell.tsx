@@ -1,4 +1,6 @@
 import * as React from 'react'
+import { observer } from 'mobx-react'
+import { compose } from 'recompose'
 
 const numberColors = [
   'transparent',
@@ -12,11 +14,12 @@ const numberColors = [
   '#808080'
 ]
 
-export const Cell = ({ cell, onClick }) => (
+const cell = ({ cell, onClick, x, y }) => (
   <div
+    data-coords={`${x}-${y}`}
     className={`cell ${cell.isRevealed ? 'revealed' : ''}`}
     style={{
-      color: numberColors[cell.value]
+      color: cell.isBomb ? 'inherit' : numberColors[cell.value]
     }}
     onClick={onClick}
   >
@@ -33,3 +36,5 @@ export const Cell = ({ cell, onClick }) => (
     )}
   </div>
 )
+
+export const Cell = compose(observer)(cell)

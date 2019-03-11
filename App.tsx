@@ -1,30 +1,25 @@
 import * as React from 'react'
+import { inject, observer } from 'mobx-react'
 import { Game } from './game'
 import { GameComponent } from './GameComponent'
 import { compose, lifecycle, withStateHandlers } from 'recompose'
+import { store } from './store'
 
-const app = ({ game }) => (
-  <div id="app">
+const app = ({ game, store }) => (
+  <div className="app">
     <h1>Minesweepers</h1>
-    {game ? <GameComponent game={game} /> : null}
+    <GameComponent game={store.game} />
   </div>
 )
 
 export const App = compose(
-  withStateHandlers(
-    {
-      game: null
-    },
-    {
-      setGame: () => game => ({ game })
-    }
-  ),
+  inject(store => ({ store })),
   lifecycle({
     componentDidMount() {
-      const { setGame } = this.props
-      setGame(new Game(20, 10, 50))
+      const { store } = this.props
+      const game = new Game(10, 5, 5)
+      store.game.setGame(JSON.parse(JSON.stringify(game)))
     }
-  })
+  }),
+  observer
 )(app)
-
-// window.Game = Game
