@@ -1,14 +1,15 @@
 import * as React from 'react'
 import { inject, observer } from 'mobx-react'
+import { compose, lifecycle, withStateHandlers } from 'recompose'
+
 import { Game } from './game'
 import { GameComponent } from './GameComponent'
-import { compose, lifecycle, withStateHandlers } from 'recompose'
-import { store } from './store'
 
-const app = ({ game, store }) => (
+const app = ({ store }) => (
   <div className="app">
     <h1>Minesweepers</h1>
     <GameComponent game={store.game} />
+    {store.game.isFinished && <h2 className="game-over">Game over! LoL</h2>)
   </div>
 )
 
@@ -17,8 +18,7 @@ export const App = compose(
   lifecycle({
     componentDidMount() {
       const { store } = this.props
-      const game = new Game(10, 5, 5)
-      store.game.setGame(JSON.parse(JSON.stringify(game)))
+      store.game.setGame(new Game(20, 10, 50))
     }
   }),
   observer

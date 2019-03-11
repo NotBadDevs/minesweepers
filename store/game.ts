@@ -1,5 +1,11 @@
 import { types } from 'mobx-state-tree'
 
+import { jsonClone } from '../utils/common'
+
+const instance = {
+  game: null
+}
+
 export const Cell = types.model('Cell', {
   isBomb: false,
   isRevealed: false,
@@ -17,11 +23,17 @@ export const Game = types
     )
   })
   .actions(self => {
-    const setGame = game => Object.assign(self, game)
+    const setGame = game => {
+      instance.game = game
+      updateGameStore()
+    }
 
     const turn = (x, y) => {
-      self.field[x][y].isRevealed = true
+      instance.game.turn(x, y)
+      updateGameStore()
     }
+
+    const updateGameStore = () => Object.assign(self, jsonClone(instance.game))
 
     return { setGame, turn }
   })

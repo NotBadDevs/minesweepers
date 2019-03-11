@@ -15,6 +15,10 @@ export class Game {
     this.setBombs(bombCount)
   }
 
+  static getRandom(start, end) {
+    return start + Math.round(Math.random() * end)
+  }
+
   createField(width, height) {
     this.width = width
     this.height = height
@@ -64,7 +68,11 @@ export class Game {
     return neighbours
   }
 
-  static getRandom(start, end) {
-    return start + Math.round(Math.random() * end)
+  turn(x, y) {
+    const cell = this.field[x][y]
+    if (cell.isBomb) {
+      this.isFinished = true
+    }
+    cell.isRevealed = true
   }
 }

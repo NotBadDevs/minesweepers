@@ -19,7 +19,7 @@ const gameComponent = ({ game }) => {
           key={`${x}-${y}`}
           x={x}
           y={y}
-          onClick={() => game.turn(x, y)}
+          onClick={() => !game.isFinished && game.turn(x, y)}
         />
       )
     }
