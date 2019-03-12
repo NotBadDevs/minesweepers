@@ -5,7 +5,8 @@
   "main": "index.ts",
   "scripts": {
     "start": "parcel index.html",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start-server": "node ./server/server-index.js"
   },
   "keywords": [],
   "author": "mnesov",
@@ -19,6 +20,7 @@
     "@types/node": "^11.11.0",
     "@types/react": "^16.8.7",
     "@types/react-dom": "^16.8.2",
+    "express": "^4.15.2",
     "mobx": "^5.9.0",
     "mobx-devtools-mst": "^0.9.21",
     "mobx-react": "^5.4.3",
@@ -26,6 +28,7 @@
     "ramda": "^0.26.1",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
-    "recompose": "^0.30.0"
+    "recompose": "^0.30.0",
+    "socket.io": "^2.2.0"
   }
 }
