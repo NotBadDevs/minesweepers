@@ -3,13 +3,13 @@ import { inject, observer } from 'mobx-react'
 import { compose, lifecycle, withStateHandlers } from 'recompose'
 
 import { Game } from './game'
-import { GameComponent } from './GameComponent'
+import { GameComponent, gameOverMessages } from './GameComponent'
 
 const app = ({ store }) => (
   <div className="app">
     <h1>Minesweepers</h1>
     <GameComponent game={store.game} />
-    {store.game.isLost && <h2 className="game-over">Game over! LoL</h2>}
+    {store.game.isLost && <h2 className="game-over">{gameOverMessages[Math.round(Math.random() * gameOverMessages.length - 1)]}</h2>}
     {store.game.isWon && <h2 className="game-win">Win! Win! Win!</h2>}
   </div>
 )
