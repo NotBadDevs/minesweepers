@@ -15,7 +15,7 @@ import {
 } from 'ramda'
 
 import { bind } from 'bind-decorator'
-import { mutableAppend } from './utils/common'
+import { mutableAppend, getRandom } from './utils/common'
 
 class Cell {
   isOpen = false
@@ -43,10 +43,6 @@ export class Game {
     this.setBombs(bombCount)
   }
 
-  static getRandom(start, end) {
-    return start + Math.round(Math.random() * end)
-  }
-
   createField(width, height) {
     for (let x = 0; x < width; x++) {
       this.field[x] = []
@@ -59,8 +55,8 @@ export class Game {
   private setBombs(bombCount) {
     while (bombCount) {
       const coord = {
-        x: Game.getRandom(0, this.width - 1),
-        y: Game.getRandom(0, this.height - 1)
+        x: getRandom(0, this.width - 1),
+        y: getRandom(0, this.height - 1)
       }
       if (!this.getCell(coord).isBomb) {
         this.setBomb(coord)

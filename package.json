@@ -6,7 +6,7 @@
   "scripts": {
     "start": "parcel index.html",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start-server": "node ./server/server-index.js"
+    "start-server": "node ./server/index.js"
   },
   "keywords": [],
   "author": "mnesov",
