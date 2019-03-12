@@ -33,7 +33,7 @@ body {
   cursor: pointer;
 }
 
-.cell.revealed {
+.cell.open {
   background-color: #eee;
 }
 

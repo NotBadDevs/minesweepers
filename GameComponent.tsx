@@ -17,10 +17,11 @@ const gameComponent = ({ game }) => {
         <Cell
           cell={cell}
           key={`${x}-${y}`}
-          x={x}
-          y={y}
           onClick={() =>
-            !game.isFinished && !cell.isOpen && game.turn(x, y)
+            !game.isFinished && !cell.isOpen && !cell.isFlag && game.turn(x, y)
+          }
+          onContextMenu={() =>
+            !game.isFinished && !cell.isOpen && game.toggleFlag(x, y)
           }
         />
       )

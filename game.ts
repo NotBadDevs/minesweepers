@@ -97,6 +97,7 @@ export class Game {
   private cellIsOpen(coord) {
     return this.getCell(coord).isOpen
   }
+
   @bind
   private cellValue(coord) {
     return this.getCell(coord).value
@@ -116,7 +117,7 @@ export class Game {
   }
 
   turn(x, y) {
-    const cell = this.getCell({x,y})
+    const cell = this.getCell({ x, y })
 
     if (cell.isBomb) {
       this.isFinished = true

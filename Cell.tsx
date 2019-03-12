@@ -14,27 +14,39 @@ const numberColors = [
   '#808080'
 ]
 
-const cell = ({ cell, onClick, x, y }) => (
-  <div
-    data-coords={`${x}-${y}`}
-    className={`cell ${cell.isOpen ? 'revealed' : ''}`}
-    style={{
-      color: cell.isBomb ? 'inherit' : numberColors[cell.value]
-    }}
-    onClick={onClick}
-  >
-    {cell.isOpen ? (
-      cell.isBomb ? (
-        <span>💣</span>
-      ) : cell.value ? (
-        cell.value
-      ) : (
-        ''
-      )
-    ) : (
-      ''
-    )}
-  </div>
-)
+const cell = ({ cell, onClick, onContextMenu }) => {
+  const type = cell.isFlag
+    ? 'flag'
+    : !cell.isOpen
+    ? 'closed'
+    : cell.isBomb
+    ? 'bomb'
+    : cell.value
+    ? 'number'
+    : 'empty'
+  return (
+    <div
+      className={`cell ${cell.isOpen ? 'open' : ''}`}
+      style={{
+        color: type === 'number' ? numberColors[cell.value] : 'inherit'
+      }}
+      onClick={onClick}
+      onContextMenu={e => {
+        onContextMenu()
+        e.preventDefault()
+      }}
+    >
+      {cell.isOpen &&
+        {
+          bomb: <span>💣</span>,
+          number: <React.Fragment>{cell.value}</React.Fragment>
+        }[type]}
+      {!cell.isOpen &&
+        {
+          flag: <span>🚩</span>
+        }[type]}
+    </div>
+  )
+}
 
 export const Cell = compose(observer)(cell)
