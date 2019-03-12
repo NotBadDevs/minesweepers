@@ -17,13 +17,13 @@ const numberColors = [
 const cell = ({ cell, onClick, x, y }) => (
   <div
     data-coords={`${x}-${y}`}
-    className={`cell ${cell.isRevealed ? 'revealed' : ''}`}
+    className={`cell ${cell.isOpen ? 'revealed' : ''}`}
     style={{
       color: cell.isBomb ? 'inherit' : numberColors[cell.value]
     }}
     onClick={onClick}
   >
-    {cell.isRevealed ? (
+    {cell.isOpen ? (
       cell.isBomb ? (
         <span>💣</span>
       ) : cell.value ? (

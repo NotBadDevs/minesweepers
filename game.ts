@@ -1,7 +1,26 @@
+import {
+  includes,
+  pipe,
+  filter,
+  reject,
+  __,
+  values,
+  apply,
+  forEach,
+  tap,
+  when,
+  length,
+  prop,
+  either
+} from 'ramda'
+
+import { bind } from 'bind-decorator'
+import { mutableAppend } from './utils/common'
+
 class Cell {
+  isOpen = false
   isBomb = false
   value = 0
-  isRevealed = false
 }
 
 export class Game {
@@ -30,49 +49,84 @@ export class Game {
     }
   }
 
-  setBombs(bombCount) {
-    let x, y, cell
+  private setBombs(bombCount) {
     while (bombCount) {
-      x = Game.getRandom(0, this.width - 1)
-      y = Game.getRandom(0, this.height - 1)
-      cell = this.field[x][y]
-      if (!cell.isBomb) {
-        this.setBomb(x, y)
+      const coord = {
+        x: Game.getRandom(0, this.width - 1),
+        y: Game.getRandom(0, this.height - 1)
+      }
+      if (!this.getCell(coord).isBomb) {
+        this.setBomb(coord)
         bombCount--
       }
     }
   }
 
-  setBomb(x, y) {
-    this.field[x][y].isBomb = true
-    this.getNeighbours(x, y).forEach(cell => {
-      cell.value++
+  private setBomb(coord) {
+    this.getCell(coord).isBomb = true
+    this.getNeighbours(coord).forEach(c => {
+      this.getCell(c).value++
     })
   }
 
-  getNeighbours(x, y) {
+  @bind
+  private getNeighbours(coord) {
     const neighbours = []
-    for (let i = x - 1; i <= x + 1; i++) {
-      for (let j = y - 1; j <= y + 1; j++) {
+    for (let x = coord.x - 1; x <= coord.x + 1; x++) {
+      for (let y = coord.y - 1; y <= coord.y + 1; y++) {
         if (
-          i >= 0 &&
-          i < this.width &&
-          j >= 0 &&
-          j < this.height &&
-          !(i === x && j === y)
+          x >= 0 &&
+          x < this.width &&
+          y >= 0 &&
+          y < this.height &&
+          !(x === coord.x && y === coord.y)
         ) {
-          neighbours.push(this.field[i][j])
+          neighbours.push({ x, y })
         }
       }
     }
     return neighbours
   }
 
+  @bind
+  private getCell(coord) {
+    return this.field[coord.x][coord.y]
+  }
+
+  @bind
+  private cellIsOpen(coord) {
+    return this.getCell(coord).isOpen
+  }
+  @bind
+  private cellValue(coord) {
+    return this.getCell(coord).value
+  }
+
+  private openCells(cells, foundCells = []) {
+    cells.forEach(
+      pipe(
+        this.getNeighbours,
+        reject(either(this.cellIsOpen, includes(__, foundCells))),
+        tap(mutableAppend(__, foundCells)),
+        reject(this.cellValue),
+        when(length, cells => this.openCells(cells, foundCells))
+      )
+    )
+    return foundCells
+  }
+
   turn(x, y) {
-    const cell = this.field[x][y]
+    const cell = this.getCell({x,y})
+
     if (cell.isBomb) {
       this.isFinished = true
+      cell.isOpen = true
+    } else {
+      if (cell.value) {
+        cell.isOpen = true
+      } else {
+        this.openCells([{ x, y }]).forEach(c => (this.getCell(c).isOpen = true))
+      }
     }
-    cell.isRevealed = true
   }
 }

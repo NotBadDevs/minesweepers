@@ -19,7 +19,9 @@ const gameComponent = ({ game }) => {
           key={`${x}-${y}`}
           x={x}
           y={y}
-          onClick={() => !game.isFinished && game.turn(x, y)}
+          onClick={() =>
+            !game.isFinished && !cell.isOpen && game.turn(x, y)
+          }
         />
       )
     }

@@ -11,6 +11,7 @@
   "author": "mnesov",
   "license": "MIT",
   "devDependencies": {
+    "bind-decorator": "^1.0.11",
     "parcel-bundler": "^1.12.0",
     "prettier": "^1.16.4",
     "typescript": "^3.3.3333"

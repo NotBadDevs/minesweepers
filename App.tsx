@@ -9,7 +9,7 @@ const app = ({ store }) => (
   <div className="app">
     <h1>Minesweepers</h1>
     <GameComponent game={store.game} />
-    {store.game.isFinished && <h2 className="game-over">Game over! LoL</h2>)
+    {store.game.isFinished && <h2 className="game-over">Game over! LoL</h2>}
   </div>
 )
 
@@ -18,7 +18,7 @@ export const App = compose(
   lifecycle({
     componentDidMount() {
       const { store } = this.props
-      store.game.setGame(new Game(20, 10, 50))
+      store.game.setGame(new Game(20, 10, 10))
     }
   }),
   observer

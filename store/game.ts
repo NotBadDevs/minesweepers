@@ -8,7 +8,7 @@ const instance = {
 
 export const Cell = types.model('Cell', {
   isBomb: false,
-  isRevealed: false,
+  isOpen: false,
   value: 0
 })
 
