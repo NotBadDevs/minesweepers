@@ -16,6 +16,10 @@ body {
   color: red;
 }
 
+.game-win {
+  color: green;
+}
+
 .game {
   margin: auto;
 }

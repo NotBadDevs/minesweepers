@@ -27,9 +27,18 @@ export class Game {
   field = []
   width = 0
   height = 0
+  bombCount = 0
+  cellsLeft = 0
   isFinished = false
+  isWon = false
+  isLost = false
 
   constructor(width, height, bombCount) {
+    this.width = width
+    this.height = height
+    this.bombCount = bombCount
+    this.cellsLeft = width * height
+
     this.createField(width, height)
     this.setBombs(bombCount)
   }
@@ -39,8 +48,6 @@ export class Game {
   }
 
   createField(width, height) {
-    this.width = width
-    this.height = height
     for (let x = 0; x < width; x++) {
       this.field[x] = []
       for (let y = 0; y < height; y++) {
@@ -121,13 +128,21 @@ export class Game {
 
     if (cell.isBomb) {
       this.isFinished = true
+      this.isLost = true
       cell.isOpen = true
     } else {
       if (cell.value) {
         cell.isOpen = true
+        this.cellsLeft--
       } else {
-        this.openCells([{ x, y }]).forEach(c => (this.getCell(c).isOpen = true))
+        const cellsToOpen = this.openCells([{ x, y }])
+        cellsToOpen.forEach(c => (this.getCell(c).isOpen = true))
+        this.cellsLeft -= cellsToOpen.length
       }
+    }
+    if (this.cellsLeft === this.bombCount) {
+      this.isFinished = true
+      this.isWon = true
     }
   }
 }

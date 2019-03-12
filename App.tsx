@@ -9,7 +9,8 @@ const app = ({ store }) => (
   <div className="app">
     <h1>Minesweepers</h1>
     <GameComponent game={store.game} />
-    {store.game.isFinished && <h2 className="game-over">Game over! LoL</h2>}
+    {store.game.isLost && <h2 className="game-over">Game over! LoL</h2>}
+    {store.game.isWon && <h2 className="game-win">Win! Win! Win!</h2>}
   </div>
 )
 

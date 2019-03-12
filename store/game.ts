@@ -1,5 +1,5 @@
 import { types } from 'mobx-state-tree'
-import { merge } from 'ramda'
+import { merge, pick } from 'ramda'
 
 import { jsonClone } from '../utils/common'
 
@@ -18,7 +18,14 @@ export const Game = types
   .model('Game', {
     width: 0,
     height: 0,
+
+    bombCount: 0,
+    cellsLeft: 0,
+
     isFinished: false,
+    isWon: false,
+    isLost: false,
+
     field: types.optional(
       types.array(types.optional(types.array(types.optional(Cell, {})), [])),
       []
@@ -51,9 +58,21 @@ export const Game = types
           self.field[x][y] = merge(self.field[x][y], instanceData.field[x][y])
         }
       }
-      self.width = instanceData.width
-      self.height = instanceData.height
-      self.isFinished = instanceData.isFinished
+      Object.assign(
+        self,
+        pick(
+          [
+            'width',
+            'height',
+            'bombCount',
+            'cellsLeft',
+            'isFinished',
+            'isWon',
+            'isLost'
+          ],
+          instanceData
+        )
+      )
     }
 
     return { setGame, turn, toggleFlag }
