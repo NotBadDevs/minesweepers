@@ -4,6 +4,8 @@ import { compose } from 'recompose'
 import { defaultTo } from 'ramda'
 
 import './style.css'
+import { gameOverMessages, gameWinMessages } from './const'
+import { getRandom } from '../utils/common'
 import { Cell } from './Cell'
 
 const cellSize = 31
@@ -27,15 +29,27 @@ const gameComponent = ({ game }) => {
       )
     }
   return (
-    <div
-      className="game noselect"
-      style={{
-        width: cellSize * game.width,
-        height: cellSize * game.height
-      }}
-    >
-      {elements}
-    </div>
+    <React.Fragment>
+      <div
+        className="game noselect"
+        style={{
+          width: cellSize * game.width,
+          height: cellSize * game.height
+        }}
+      >
+        {elements}
+      </div>
+      {game.isLost && (
+        <h2 className="game-over">
+          {gameOverMessages[getRandom(0, gameOverMessages.length - 1)]}
+        </h2>
+      )}
+      {game.isWon && (
+        <h2 className="game-win">
+          {gameWinMessages[getRandom(0, gameWinMessages.length - 1)]}
+        </h2>
+      )}
+    </React.Fragment>
   )
 }
 

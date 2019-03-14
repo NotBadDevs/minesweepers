@@ -15,10 +15,10 @@ import {
 } from 'ramda'
 
 import { bind } from 'bind-decorator'
-import { mutableAppend, getRandom } from './utils/common'
+import { mutableAppend, getRandom } from '../utils/common'
 
 import { isObject } from 'util';
-const click = require("./assets/click.ogg")
+const click = require("../assets/click.ogg")
 
 import io from 'socket.io-client';
 const socket = io('http://localhost:3000');

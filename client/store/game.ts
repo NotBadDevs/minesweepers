@@ -1,7 +1,7 @@
 import { types } from 'mobx-state-tree'
 import { merge, pick } from 'ramda'
 
-import { jsonClone } from '../utils/common'
+import { jsonClone } from '../../utils/common'
 
 const instance = {
   game: null
