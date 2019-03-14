@@ -2,6 +2,7 @@ import { types } from 'mobx-state-tree'
 import { merge, pick } from 'ramda'
 
 import { jsonClone } from '../../utils/common'
+import { service } from '../service'
 
 const instance = {
   game: null
@@ -38,8 +39,12 @@ export const Game = types
     }
 
     const turn = (x, y) => {
+      service.emit('turn', '[' + service.id + ']' + ' TURN ON ' + x + '-' + y)
       instance.game.turn(x, y)
       updateGameStore()
+      if (instance.game.isLost) {
+        service.emit('gameover', '[' + service.id + ']' + ' LOST THE GAME')
+      }
     }
 
     const toggleFlag = (x, y) => {

@@ -21,6 +21,7 @@
     "@types/node": "^11.11.0",
     "@types/react": "^16.8.7",
     "@types/react-dom": "^16.8.2",
+    "@types/socket.io": "^2.1.2",
     "express": "^4.15.2",
     "mobx": "^5.9.0",
     "mobx-devtools-mst": "^0.9.21",

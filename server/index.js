@@ -1,25 +1,37 @@
-var app = require('express')()
-var http = require('http').Server(app)
-var io = require('socket.io')(http)
+const app = require('express')()
+const http = require('http').Server(app)
+const io = require('socket.io')(http, {
+  transports: ['websocket']
+})
 
-var gameSettings = {
+const gameSettings = {
   field: [],
   width: 20,
   height: 10,
   bombCount: 10
 }
 
-var userTag
+const players = {}
+const connections = {}
 
-var players = []
+const broadcast = (event, data) =>
+  Object.values(connections).forEach(connection => {
+    connection.emit(event, data)
+  })
 
 io.on('connection', function(socket) {
-  userTag = `[${socket.id}]`
-  console.log(`\n \n CURRENT PLAYER LIST AFTER JOIN: ${JSON.stringify(players)}`)
-  players.push({
+  console.log(
+    `\n \n CURRENT PLAYER LIST AFTER JOIN: ${JSON.stringify(players)}`
+  )
+
+  players[socket.id] = {
     id: socket.id,
     nick: `Guest #${Math.round(Math.random() * 10)}`
-  })
+  }
+
+  connections[socket.id] = socket
+
+  broadcast('players', players)
 
   socket.on('turn', function(data) {
     console.log(data)
@@ -29,34 +41,29 @@ io.on('connection', function(socket) {
     console.log(data)
   })
 
-  socket.on('changeNick', function(data) {
-    var nick = data.split(',')[0]
-    console.log(
-      `${data.split(',')[1]} CHANGED THEIR NICK TO: ${data.split(',')[0]}`
-    )
-    console.log(`\n \n CURRENT PLAYER LIST: ${JSON.stringify(players)}`)
-
-    for (var i = 0; i < players.length; i++) {
-      if (players[i].id == data.split(',')[1]) {
-        players[i].nick = nick
-      }
+  socket.on('changeNick', function({ nick }) {
+    const player = players[socket.id]
+    if (player) {
+      player.nick = nick
     }
+
+    broadcast('players', players)
+
+    console.log(`\n \n CURRENT PLAYER LIST: ${JSON.stringify(players)}`)
   })
 
   socket.on('disconnect', function() {
-    console.log(`\n \n CURRENT PLAYER LIST AFTER LEAVE: ${JSON.stringify(players)}`)
-    for (var i = 0; i < players.length; i++) {
-      if (players[i].id == socket.id) {
-        players.splice(players[i], 1)
-      }
+    delete players[socket.id]
+    delete connections[socket.id]
 
-      if(players.length = 1) {
-        console.log("MULTIPLAYER GAME ENDED") // Здесь триггериться конец игры когда кол-во игроков = 0
-      }
-    }
+    broadcast('players', players)
+
+    console.log(
+      `\n \n CURRENT PLAYER LIST AFTER LEAVE: ${JSON.stringify(players)}`
+    )
   })
 
-  console.log(`${userTag} USER CONNECTED`)
+  console.log(`[${socket.id}] USER CONNECTED`)
 })
 
 http.listen(3000, function() {

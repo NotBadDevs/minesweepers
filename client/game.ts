@@ -1,29 +1,21 @@
 import {
-  includes,
-  pipe,
-  filter,
-  reject,
   __,
-  values,
   apply,
+  either,
+  filter,
   forEach,
-  tap,
-  when,
+  includes,
   length,
+  pipe,
   prop,
-  either
+  reject,
+  tap,
+  values,
+  when
 } from 'ramda'
-
 import { bind } from 'bind-decorator'
-import { mutableAppend, getRandom } from '../utils/common'
 
-import { isObject } from 'util';
-const click = require("../assets/click.ogg")
-
-import io from 'socket.io-client';
-export const socket = io('http://localhost:3000');
-
-var nick = "Guest " + Math.round(Math.random() * 10)
+import { getRandom, mutableAppend } from '../utils/common'
 
 class Cell {
   isOpen = false
@@ -40,7 +32,7 @@ export class Game {
   isFinished = false
   isWon = false
   isLost = false
-  
+
   constructor(width, height, bombCount) {
     this.width = width
     this.height = height
@@ -128,13 +120,11 @@ export class Game {
   }
 
   turn(x, y) {
-    socket.emit("turn", "["+socket.id+"]"+" TURN ON "+x+"-"+y)
     const cell = this.getCell({ x, y })
     if (cell.isBomb) {
       this.isFinished = true
       this.isLost = true
       cell.isOpen = true
-      socket.emit("gameover", "["+socket.id+"]"+" LOST THE GAME")
     } else {
       if (cell.value) {
         cell.isOpen = true
@@ -150,8 +140,4 @@ export class Game {
       this.isWon = true
     }
   }
-}
-
-export function setNick(nick) {
-  socket.emit("nickChange", nick)
 }

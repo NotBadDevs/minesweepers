@@ -3,13 +3,16 @@ import makeInspectable from 'mobx-devtools-mst'
 import { defaultTo, dissocPath, pick, pipe } from 'ramda'
 
 import { Game } from './game'
+import { Users } from './users'
 
 const Store = types.model('Store', {
-  game: types.optional(Game, {})
+  game: types.optional(Game, {}),
+  usersStore: types.optional(Users, {})
 })
 
 export const store = Store.create({
-  game: {}
+  game: {},
+  usersStore: {}
 })
 
 if (process.env.NODE_ENV === 'development') {

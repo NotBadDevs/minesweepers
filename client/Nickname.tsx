@@ -1,10 +1,10 @@
 import * as React from 'react'
 import { compose, withStateHandlers, withProps } from 'recompose'
-import "./game"
-import { socket } from './game';
+
+import { service } from './service'
 
 const nickname = ({ nick, updateNick, setNick }) => (
-  <div className='nickname'>
+  <div className="nickname">
     <input
       type="text"
       placeholder="Your nickname"
@@ -28,6 +28,6 @@ export const Nickname = compose(
     }
   ),
   withProps(({ nick }) => ({
-    setNick: () => socket.emit("changeNick", `${nick},${socket.id}`) 
+    setNick: () => service.emit('changeNick', { nick })
   }))
 )(nickname)
