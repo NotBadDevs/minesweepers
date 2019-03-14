@@ -1,5 +1,7 @@
 import * as React from 'react'
 import { compose, withStateHandlers, withProps } from 'recompose'
+import "./game"
+import { socket } from './game';
 
 const nickname = ({ nick, updateNick, setNick }) => (
   <div className='nickname'>
@@ -26,6 +28,6 @@ export const Nickname = compose(
     }
   ),
   withProps(({ nick }) => ({
-    setNick: () => console.log('setNick', nick)
+    setNick: () => socket.emit("changeNick", `${nick},${socket.id}`) 
   }))
 )(nickname)
