@@ -23,6 +23,8 @@ const click = require("./assets/click.ogg")
 import io from 'socket.io-client';
 const socket = io('http://localhost:3000');
 
+var nick = "Guest " + Math.round(Math.random() * 10)
+
 class Cell {
   isOpen = false
   isBomb = false
@@ -148,4 +150,8 @@ export class Game {
       this.isWon = true
     }
   }
+}
+
+export function setNick(nick) {
+  socket.emit("nickChange", nick)
 }

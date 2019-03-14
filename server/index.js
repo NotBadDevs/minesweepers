@@ -9,8 +9,17 @@ var gameSettings = {
   bombCount: 10
 }
 
+var userTag;
+
+var players = []
+
+
 
 io.on('connection', function (socket) {
+  userTag = `[${socket.id}]`
+
+  players.push({id: socket.id, nick: " "})
+
   socket.on("turn", function (data) {
     console.log(data)
   })
@@ -19,7 +28,11 @@ io.on('connection', function (socket) {
     console.log(data)
   });
 
-  console.log('a user connected');
+  socket.on("changeNick", function (data) {
+    console.log(`${userTag} CHANGED THEIR NICK TO: ${data}`)
+  })
+
+  console.log(`${userTag} USER CONNECTED`);
 });
 
 http.listen(3000, function () {
@@ -27,62 +40,4 @@ http.listen(3000, function () {
 });
 
 
-
-
-// GENERATE FIELD
-
-const getRandom = (start, end) => start + Math.round(Math.random() * end)
-
-
-function createField(width, height) {
-  for (let x = 0; x < width; x++) {
-    gameSettings.field[x] = []
-    for (let y = 0; y < height; y++) {
-      gameSettings.field[x][y]
-    }
-  }
-}
-
-
-function setBombs(bombCount) {
-  while (bombCount) {
-    const coord = {
-      x: getRandom(0, gameSettings.width - 1),
-      y: getRandom(0, gameSettings.height - 1)
-    }
-  }
-}
-
-function setBomb(coord) {
-  getCell(coord).isBomb = true
-  getNeighbours(coord).forEach(c => {
-  })
-}
-
-function getNeighbours(coord) {
-  const neighbours = []
-  for (let x = coord.x - 1; x <= coord.x + 1; x++) {
-    for (let y = coord.y - 1; y <= coord.y + 1; y++) {
-      if (
-        x >= 0 &&
-        x < gameSettings.width &&
-        y >= 0 &&
-        y < height &&
-        !(x === coord.x && y === coord.y)
-      ) {
-        neighbours.push({
-          x,
-          y
-        })
-      }
-    }
-  }
-  return neighbours
-}
-
-createField(gameSettings.width, gameSettings.height)
-setBombs(gameSettings.bombCount)
-setBomb()
-getNeighbours()
-
-console.log(`Field generated, have fun! \n ${gameSettings}`)
+console.log(`STARTING THE GAME WTIH CONFIG: \n ${JSON.stringify(gameSettings)} \n`)

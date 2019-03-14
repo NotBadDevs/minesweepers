@@ -4,8 +4,9 @@ import { compose, lifecycle, withStateHandlers } from 'recompose'
 
 import { getRandom } from './utils/common'
 import { gameOverMessages, gameWinMessages } from './const'
-import { Game } from './game'
+import { Game, setNick } from './game'
 import { GameComponent } from './GameComponent'
+import { Socket } from 'dgram';
 
 const app = ({ store }) => (
   <div className="app">
@@ -16,7 +17,9 @@ const app = ({ store }) => (
         {gameOverMessages[getRandom(0, gameOverMessages.length - 1)]}
       </h2>
     )}
+
     {store.game.isWon && <h2 className="game-win">{gameWinMessages[getRandom(0, gameWinMessages.length - 1)]}</h2>}
+
   </div>
 )
 
@@ -30,3 +33,5 @@ export const App = compose(
   }),
   observer
 )(app)
+
+
