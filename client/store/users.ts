@@ -11,6 +11,12 @@ export const Users = types
   .model('Users', {
     items: types.optional(types.map(User), {})
   })
+  .actions(self => {
+    const set = items => {
+      self.items = items
+    }
+    return { set }
+  })
   .views(self => {
     return {
       get all() {

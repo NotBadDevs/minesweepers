@@ -42,7 +42,7 @@ export const UserList = compose(
       const { store, setCurrentUserId } = this.props
 
       service.on('players', players => {
-        store.usersStore.items = players
+        store.usersStore.set(players)
       })
       service.on('connect', () => {
         setCurrentUserId(service.id)

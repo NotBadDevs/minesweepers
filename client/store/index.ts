@@ -20,6 +20,6 @@ export const store = Store.create({
 if (process.env.NODE_ENV === 'development') {
   ;(<any>window).store = store
   makeInspectable(store)
-  unprotect(store)
+  // unprotect(store)
   // setLivelynessChecking('error')
 }
