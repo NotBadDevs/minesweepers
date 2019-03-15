@@ -2,10 +2,10 @@ import * as React from 'react'
 import { inject, observer } from 'mobx-react'
 import { compose, lifecycle, withStateHandlers } from 'recompose'
 
-import { Game } from './game'
 import { GameComponent } from './GameComponent'
 import { Nickname } from './Nickname'
 import { UserList } from './UserList'
+import { service } from './service'
 
 const app = ({ store }) => (
   <div className="app">
@@ -23,7 +23,9 @@ export const App = compose(
   lifecycle({
     componentDidMount() {
       const { store } = this.props
-      store.game.setGame(new Game(20, 10, 10))
+      service.on('game', game => {
+        store.game.set(game)
+      })
     }
   }),
   observer

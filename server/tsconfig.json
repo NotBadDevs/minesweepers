@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "target": "es5",
+    //    "noImplicitAny": true,
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "outDir": "../dist-server",
+    "baseUrl": ".",
+    "paths": {
+      "*": ["../node_modules/*"]
+    }
+  },
+  "include": ["./**/*"]
+}

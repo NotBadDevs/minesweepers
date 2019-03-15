@@ -1,12 +1,14 @@
 import * as React from 'react'
 import { inject, observer } from 'mobx-react'
-import { compose } from 'recompose'
+import { compose, lifecycle } from 'recompose'
+import { store } from './store'
+import { service } from './service'
 
-const userList = ({ users = [] }) => (
+const userList = ({ store }) => (
   <div className="user-list">
     <h3>User list</h3>
     <ul>
-      {users.map((user, i) => (
+      {store.usersStore.all.map((user, i) => (
         <li key={i}>{user.nick}</li>
       ))}
     </ul>
@@ -14,8 +16,15 @@ const userList = ({ users = [] }) => (
 )
 
 export const UserList = compose(
-  inject(store => ({
-    users: store.usersStore.all
-  })),
+  inject(store => ({ store })),
+  lifecycle({
+    componentDidMount() {
+      const { store } = this.props
+
+      service.on('players', players => {
+        store.usersStore.items = players
+      })
+    }
+  }),
   observer
 )(userList)

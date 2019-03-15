@@ -4,6 +4,8 @@ const io = require('socket.io')(http, {
   transports: ['websocket']
 })
 
+const { Game } = require('./game')
+
 const gameSettings = {
   field: [],
   width: 20,
@@ -13,32 +15,31 @@ const gameSettings = {
 
 const players = {}
 const connections = {}
+const games = {}
 
 const broadcast = (event, data) =>
   Object.values(connections).forEach(connection => {
+    // @ts-ignore
     connection.emit(event, data)
   })
 
 io.on('connection', function(socket) {
-  console.log(
-    `\n \n CURRENT PLAYER LIST AFTER JOIN: ${JSON.stringify(players)}`
-  )
-
   players[socket.id] = {
     id: socket.id,
     nick: `Guest #${Math.round(Math.random() * 10)}`
   }
 
   connections[socket.id] = socket
+  games[socket.id] = new Game(gameSettings)
+
+  socket.emit('game', games[socket.id])
 
   broadcast('players', players)
 
-  socket.on('turn', function(data) {
-    console.log(data)
-  })
-
-  socket.on('gameover', function(data) {
-    console.log(data)
+  socket.on('turn', function({ x, y }) {
+    const game = games[socket.id]
+    game.turn(x, y)
+    socket.emit('game', game)
   })
 
   socket.on('changeNick', function({ nick }) {
@@ -48,28 +49,17 @@ io.on('connection', function(socket) {
     }
 
     broadcast('players', players)
-
-    console.log(`\n \n CURRENT PLAYER LIST: ${JSON.stringify(players)}`)
   })
 
   socket.on('disconnect', function() {
     delete players[socket.id]
     delete connections[socket.id]
+    delete games[socket.id]
 
     broadcast('players', players)
-
-    console.log(
-      `\n \n CURRENT PLAYER LIST AFTER LEAVE: ${JSON.stringify(players)}`
-    )
   })
-
-  console.log(`[${socket.id}] USER CONNECTED`)
 })
 
 http.listen(3000, function() {
   console.log('listening on *:3000')
 })
-
-console.log(
-  `STARTING THE GAME WITH CONFIG: \n ${JSON.stringify(gameSettings)} \n`
-)

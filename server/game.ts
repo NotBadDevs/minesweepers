@@ -1,5 +1,6 @@
 import {
   __,
+  always,
   apply,
   either,
   filter,
@@ -33,14 +34,14 @@ export class Game {
   isWon = false
   isLost = false
 
-  constructor(width, height, bombCount) {
-    this.width = width
-    this.height = height
-    this.bombCount = bombCount
-    this.cellsLeft = width * height
+  constructor(options) {
+    this.width = options.width
+    this.height = options.height
+    this.bombCount = options.bombCount
+    this.cellsLeft = this.width * this.height
 
-    this.createField(width, height)
-    this.setBombs(bombCount)
+    this.createField(this.width, this.height)
+    this.setBombs(this.bombCount)
   }
 
   createField(width, height) {
@@ -110,10 +111,17 @@ export class Game {
     cells.forEach(
       pipe(
         this.getNeighbours,
+        // @ts-ignore
         reject(either(this.cellIsOpen, includes(__, foundCells))),
         tap(mutableAppend(__, foundCells)),
         reject(this.cellValue),
-        when(length, cells => this.openCells(cells, foundCells))
+        when(
+          pipe(
+            length,
+            Boolean
+          ),
+          cells => this.openCells(cells, foundCells)
+        )
       )
     )
     return foundCells

@@ -6,7 +6,9 @@ import { Game } from './game'
 import { Users } from './users'
 
 const Store = types.model('Store', {
+  // @ts-ignore
   game: types.optional(Game, {}),
+  // @ts-ignore
   usersStore: types.optional(Users, {})
 })
 
