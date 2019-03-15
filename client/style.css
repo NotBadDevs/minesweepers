@@ -67,3 +67,7 @@ body {
 .user-list h3 {
   text-align: center;
 }
+
+.user-list .current {
+  font-weight: bold;
+}

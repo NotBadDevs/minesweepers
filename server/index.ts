@@ -9,13 +9,14 @@ const { Game } = require('./game')
 const gameSettings = {
   field: [],
   width: 20,
-  height: 10,
-  bombCount: 10
+  height: 20,
+  bombCount: 30
 }
 
 const players = {}
 const connections = {}
 const games = {}
+let game
 
 const broadcast = (event, data) =>
   Object.values(connections).forEach(connection => {
@@ -32,14 +33,19 @@ io.on('connection', function(socket) {
   connections[socket.id] = socket
   games[socket.id] = new Game(gameSettings)
 
-  socket.emit('game', games[socket.id])
+  if (!game || game.isFinished) {
+    game = new Game(gameSettings)
+  }
+
+  socket.emit('game', game)
 
   broadcast('players', players)
 
   socket.on('turn', function({ x, y }) {
-    const game = games[socket.id]
+    // const game = games[socket.id]
     game.turn(x, y)
-    socket.emit('game', game)
+    // socket.emit('game', game)
+    broadcast('game', game)
   })
 
   socket.on('changeNick', function({ nick }) {

@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { compose, withStateHandlers, withProps } from 'recompose'
+import { compose, withStateHandlers, withProps, lifecycle } from 'recompose'
 
 import { service } from './service'
 
@@ -9,10 +9,10 @@ const nickname = ({ nick, updateNick, setNick }) => (
       type="text"
       placeholder="Your nickname"
       value={nick}
-      onChange={updateNick}
+      onChange={e => updateNick(e.target.value)}
       maxLength={20}
     />
-    <button onClick={setNick}>Set</button>
+    <button onClick={() => setNick(nick)}>Set</button>
   </div>
 )
 
@@ -22,12 +22,21 @@ export const Nickname = compose(
       nick: ''
     },
     {
-      updateNick: () => e => ({
-        nick: e.target.value
-      })
+      updateNick: () => nick => {
+        sessionStorage.setItem('nick', nick)
+        return { nick }
+      }
     }
   ),
-  withProps(({ nick }) => ({
-    setNick: () => service.emit('changeNick', { nick })
-  }))
+  withProps(() => ({
+    setNick: nick => service.emit('changeNick', { nick })
+  })),
+  lifecycle({
+    componentDidMount() {
+      const { updateNick, setNick } = this.props
+      const nick = sessionStorage.getItem('nick')
+      updateNick(nick)
+      service.on('connect', () => setNick(nick))
+    }
+  })
 )(nickname)
