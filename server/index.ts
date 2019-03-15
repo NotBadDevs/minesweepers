@@ -8,8 +8,8 @@ const { Game } = require('./game')
 
 const gameSettings = {
   field: [],
-  width: 20,
-  height: 20,
+  width: 30,
+  height: 10,
   bombCount: 30
 }
 
@@ -27,7 +27,8 @@ const broadcast = (event, data) =>
 io.on('connection', function(socket) {
   players[socket.id] = {
     id: socket.id,
-    nick: `Guest #${Math.round(Math.random() * 10)}`
+    nick: `Guest #${Math.round(Math.random() * 10)}`,
+    status: ''
   }
 
   connections[socket.id] = socket
@@ -35,16 +36,25 @@ io.on('connection', function(socket) {
 
   if (!game || game.isFinished) {
     game = new Game(gameSettings)
+    Object.values(players).forEach(player => {
+      // @ts-ignore
+      player.status = ''
+    })
+    broadcast('game', game)
+  } else {
+    socket.emit('game', game)
   }
-
-  socket.emit('game', game)
 
   broadcast('players', players)
 
   socket.on('turn', function({ x, y }) {
     // const game = games[socket.id]
     game.turn(x, y)
+    if (game.isFinished) {
+      players[socket.id].status = game.isLost ? 'looser' : 'winner'
+    }
     // socket.emit('game', game)
+    broadcast('players', players)
     broadcast('game', game)
   })
 

@@ -71,3 +71,11 @@ body {
 .user-list .current {
   font-weight: bold;
 }
+
+.user-list .winner {
+  color: green;
+}
+
+.user-list .looser {
+  color: red;
+}

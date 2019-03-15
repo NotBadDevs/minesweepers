@@ -1,6 +1,8 @@
 import * as React from 'react'
 import { inject, observer } from 'mobx-react'
 import { compose, lifecycle, withStateHandlers } from 'recompose'
+import classnames from 'classnames'
+
 import { service } from './service'
 
 const userList = ({ store, currentUserId }) => (
@@ -8,7 +10,14 @@ const userList = ({ store, currentUserId }) => (
     <h3>User list</h3>
     <ul>
       {store.usersStore.all.map((user, i) => (
-        <li key={i} className={user.id === currentUserId ? 'current' : ''}>
+        <li
+          key={i}
+          className={classnames({
+            current: user.id === currentUserId,
+            winner: user.status === 'winner',
+            looser: user.status === 'looser'
+          })}
+        >
           {user.nick}
         </li>
       ))}

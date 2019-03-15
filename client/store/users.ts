@@ -3,7 +3,8 @@ import { values as mobxValues } from 'mobx'
 
 const User = types.model('User', {
   id: types.identifier,
-  nick: ''
+  nick: '',
+  status: ''
 })
 
 export const Users = types
