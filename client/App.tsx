@@ -10,7 +10,7 @@ import { service } from './service'
 const app = ({ store }) => (
   <div className="app">
     <h1>
-      Minesweepers <span style={{ fontSize: '10px', color: 'red' }}>INDEV</span>
+      Minesweepers <span style={{ fontSize: '10px', color: 'red' }}>ALPHA</span>
     </h1>
     <GameComponent game={store.game} />
     <Nickname />

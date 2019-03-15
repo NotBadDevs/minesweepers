@@ -9,7 +9,8 @@
     "serve": "node dist-server/server/index.js",
     "watch-server": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"cyan.bold,green.bold\" \"npm run watch-server-ts\" \"npm run watch-server-node\"",
     "watch-server-node": "nodemon ./dist-server/server/index.js",
-    "watch-server-ts": "cd server; tsc -w"
+    "watch-server-ts": "cd server; tsc -w",
+    "build-client": "parcel build ./client/index.html"
   },
   "keywords": [],
   "author": "mnesov",
