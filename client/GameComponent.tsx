@@ -1,7 +1,6 @@
 import * as React from 'react'
 import { observer } from 'mobx-react'
 import { compose } from 'recompose'
-import { defaultTo } from 'ramda'
 
 import './style.css'
 import { gameOverMessages, gameWinMessages } from './const'

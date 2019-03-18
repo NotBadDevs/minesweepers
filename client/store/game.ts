@@ -1,12 +1,7 @@
 import { types } from 'mobx-state-tree'
 import { merge, pick } from 'ramda'
 
-import { jsonClone } from '../../utils/common'
 import { service } from '../service'
-
-const instance = {
-  game: null
-}
 
 export const Cell = types.model('Cell', {
   isOpen: false,

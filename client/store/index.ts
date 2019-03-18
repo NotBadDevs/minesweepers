@@ -1,6 +1,5 @@
-import { types, unprotect } from 'mobx-state-tree'
+import { types } from 'mobx-state-tree'
 import makeInspectable from 'mobx-devtools-mst'
-import { defaultTo, dissocPath, pick, pipe } from 'ramda'
 
 import { Game } from './game'
 import { Users } from './users'
