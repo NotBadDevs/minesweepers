@@ -1,19 +1,4 @@
-import {
-  __,
-  always,
-  apply,
-  either,
-  filter,
-  forEach,
-  includes,
-  length,
-  pipe,
-  prop,
-  reject,
-  tap,
-  values,
-  when
-} from 'ramda'
+import { __, either, includes, length, pipe, reject, tap, when } from 'ramda'
 import { bind } from 'bind-decorator'
 
 import { getRandom, mutableAppend } from 'minesweeper-shared/utils'
