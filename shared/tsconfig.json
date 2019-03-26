@@ -3,6 +3,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "target": "ES5",
-    "jsx": "react"
+    "jsx": "react",
+    "lib": ["dom"]
   }
 }

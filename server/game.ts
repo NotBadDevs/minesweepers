@@ -16,7 +16,7 @@ import {
 } from 'ramda'
 import { bind } from 'bind-decorator'
 
-import { getRandom, mutableAppend } from '../utils/common'
+import { getRandom, mutableAppend } from 'minesweeper-shared/utils'
 
 class Cell {
   isOpen = false

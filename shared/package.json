@@ -1,0 +1,11 @@
+{
+  "name": "minesweeper-shared",
+  "version": "0.0.1",
+  "description": "",
+  "keywords": [],
+  "author": "mnesov",
+  "license": "MIT",
+  "dependencies": {
+    "ramda": "^0.26.1"
+  }
+}

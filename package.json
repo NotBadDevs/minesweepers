@@ -1,45 +1,33 @@
 {
-  "name": "minesweeper",
-  "version": "1.0.0",
-  "description": "",
-  "scripts": {
-    "start": "parcel ./client/index.html",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build-server": "cd server; tsc",
-    "serve": "node dist-server/server/index.js",
-    "watch-server": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"cyan.bold,green.bold\" \"npm run watch-server-ts\" \"npm run watch-server-node\"",
-    "watch-server-node": "nodemon ./dist-server/server/index.js",
-    "watch-server-ts": "cd server; tsc -w",
-    "build-client": "parcel build ./client/index.html"
-  },
-  "keywords": [],
-  "author": "mnesov",
+  "name": "minesweepers",
+  "version": "0.0.1",
+  "private": false,
   "license": "MIT",
+  "scripts": {
+    "start": "lerna run --parallel start",
+    "build": "lerna run build",
+    "test": "lerna run test",
+    "postinstall": "lerna bootstrap"
+  },
+  "repository": "github:NotBadDevs/minesweepers",
   "devDependencies": {
+    "@types/node": "^11.11.3",
     "@types/ramda": "^0.26.3",
     "@types/react": "^16.8.7",
     "@types/react-dom": "^16.8.2",
     "@types/socket.io": "^2.1.2",
-    "@types/node": "^11.11.3",
     "bind-decorator": "^1.0.11",
+    "lerna": "^3.13.1",
+    "prettier": "^1.16.4",
+    "ramda": "^0.26.1",
+    "typescript": "^3.3.3333",
     "concurrently": "^4.1.0",
     "nodemon": "^1.18.10",
-    "parcel-bundler": "^1.12.0",
-    "prettier": "^1.16.4",
-    "typescript": "^3.3.3333"
+    "parcel-bundler": "^1.12.0"
   },
   "dependencies": {
-    "classnames": "^2.2.6",
-    "express": "^4.15.2",
-    "mobx": "^5.9.0",
-    "mobx-devtools-mst": "^0.9.21",
-    "mobx-react": "^5.4.3",
-    "mobx-state-tree": "^3.11.0",
-    "ramda": "^0.26.1",
-    "react": "^16.8.4",
-    "react-dom": "^16.8.4",
-    "recompose": "^0.30.0",
-    "socket.io": "^2.2.0",
-    "socket.io-client": "^2.2.0"
+    "minesweeper": "file:client",
+    "minesweeper-server": "file:server",
+    "minesweeper-shared": "file:shared"
   }
 }

@@ -1,0 +1,8 @@
+{
+  "packages": [
+    "client",
+    "server",
+    "shared"
+  ],
+  "version": "0.0.1"
+}

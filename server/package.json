@@ -1,0 +1,20 @@
+{
+  "name": "minesweeper-server",
+  "version": "0.0.1",
+  "description": "",
+  "scripts": {
+    "start": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"cyan.bold,green.bold\" \"npm run watch-ts\" \"npm run watch-node\"",
+    "watch-node": "nodemon ./dist/server/index.js",
+    "watch-ts": "tsc -w",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc"
+  },
+  "keywords": [],
+  "author": "mnesov",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.15.2",
+    "ramda": "^0.26.1",
+    "socket.io": "^2.2.0"
+  }
+}
