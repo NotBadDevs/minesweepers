@@ -13,7 +13,7 @@
   "author": "mnesov",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.15.2",
+    "micro": "^9.3.3",
     "ramda": "^0.26.1",
     "socket.io": "^2.2.0"
   }

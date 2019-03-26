@@ -4,6 +4,8 @@
     "experimentalDecorators": true,
     "target": "ES5",
     "jsx": "react",
-    "lib": ["dom"]
+    "lib": ["dom"],
+    "sourceMap": true,
+    "outDir": "./dist"
   }
 }
