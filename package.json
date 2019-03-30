@@ -4,10 +4,10 @@
   "private": false,
   "license": "MIT",
   "scripts": {
-    "start": "lerna run --parallel start",
-    "build": "lerna run build",
-    "test": "lerna run test",
-    "postinstall": "lerna bootstrap"
+    "start": "npx lerna run --parallel start",
+    "build": "npx lerna run build",
+    "test": "npx lerna run test",
+    "postinstall": "npx lerna bootstrap"
   },
   "repository": "github:NotBadDevs/minesweepers",
   "devDependencies": {
@@ -26,8 +26,8 @@
     "parcel-bundler": "^1.12.0"
   },
   "dependencies": {
-    "minesweeper": "file:client",
-    "minesweeper-server": "file:server",
-    "minesweeper-shared": "file:shared"
+    "minesweepers-client": "file:client",
+    "minesweepers-server": "file:server",
+    "minesweepers-shared": "file:shared"
   }
 }
