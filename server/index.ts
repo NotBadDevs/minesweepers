@@ -18,6 +18,8 @@ const connections = {}
 const games = {}
 let game
 
+const defaultNick = socket => `Guest ${socket.id}`
+
 const broadcast = (event, data) =>
   Object.values(connections).forEach(connection => {
     // @ts-ignore
@@ -27,7 +29,7 @@ const broadcast = (event, data) =>
 io.on('connection', function(socket) {
   players[socket.id] = {
     id: socket.id,
-    nick: `Guest #${Math.round(Math.random() * 10)}`,
+    nick: defaultNick(socket),
     status: ''
   }
 
@@ -61,9 +63,8 @@ io.on('connection', function(socket) {
   socket.on('changeNick', function({ nick }) {
     const player = players[socket.id]
     if (player) {
-      player.nick = nick
+      player.nick = nick || defaultNick(socket)
     }
-
     broadcast('players', players)
   })
 
@@ -79,4 +80,3 @@ io.on('connection', function(socket) {
 server.listen(7777, function() {
   console.log('listening on *:7777')
 })
-
