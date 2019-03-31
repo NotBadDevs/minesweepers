@@ -4,7 +4,7 @@ import { compose } from 'recompose'
 
 import './style.css'
 import { gameOverMessages, gameWinMessages } from './const'
-import { getRandom } from 'minesweeper-shared/utils'
+import { getRandom } from '../shared/utils'
 import { Cell } from './Cell'
 
 const cellSize = 31

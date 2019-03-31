@@ -4,6 +4,8 @@ const io = require('socket.io')(server, {
   transports: ['websocket']
 })
 
+import { SOCKET_IO_PORT } from '../shared/const'
+
 const { Game } = require('./game')
 
 const gameSettings = {
@@ -77,6 +79,6 @@ io.on('connection', function(socket) {
   })
 })
 
-server.listen(7777, function() {
-  console.log('listening on *:7777')
+server.listen(SOCKET_IO_PORT, function() {
+  console.log(`listening on *:${SOCKET_IO_PORT}`)
 })
