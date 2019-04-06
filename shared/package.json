@@ -1,8 +1,9 @@
 {
   "name": "minesweepers-shared",
   "version": "0.0.1",
-  "description": "",
+  "description": "Minesweeper shared",
   "keywords": [],
+  "repository": "github:NotBadDevs/minesweepers",
   "author": "mnesov",
   "license": "MIT",
   "dependencies": {

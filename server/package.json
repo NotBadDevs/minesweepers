@@ -1,7 +1,11 @@
 {
   "name": "minesweepers-server",
   "version": "0.0.1",
-  "description": "",
+  "description": "Minesweeper server",
+  "keywords": [],
+  "repository": "github:NotBadDevs/minesweepers",
+  "author": "mnesov",
+  "license": "MIT",
   "scripts": {
     "start": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"cyan.bold,green.bold\" \"npm run watch-ts\" \"npm run watch-node\"",
     "watch-node": "nodemon ./dist/server/index.js",
@@ -9,12 +13,10 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc"
   },
-  "keywords": [],
-  "author": "mnesov",
-  "license": "MIT",
   "dependencies": {
     "micro": "^9.3.3",
     "ramda": "^0.26.1",
-    "socket.io": "^2.2.0"
+    "socket.io": "^2.2.0",
+    "bind-decorator": "^1.0.11"
   }
 }

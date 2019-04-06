@@ -1,15 +1,16 @@
 {
   "name": "minesweepers-client",
   "version": "0.0.1",
-  "description": "",
+  "description": "Minesweeper client",
+  "keywords": [],
+  "repository": "github:NotBadDevs/minesweepers",
+  "author": "mnesov",
+  "license": "MIT",
   "scripts": {
     "start": "parcel -p 80 ./index.html",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "parcel build ./index.html"
   },
-  "keywords": [],
-  "author": "mnesov",
-  "license": "MIT",
   "dependencies": {
     "classnames": "^2.2.6",
     "mobx": "^5.9.0",
