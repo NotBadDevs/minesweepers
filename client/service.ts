@@ -7,6 +7,6 @@ console.log('env', process.env.NODE_ENV, process.env)
 export const service = io(
   process.env.NODE_ENV === 'development'
     ? `http://localhost:${SOCKET_IO_PORT}`
-    : `http://cubie.dns-cloud.net:${SOCKET_IO_PORT}/`,
+    : `http://minesweepers.cubie.dns-cloud.net:${SOCKET_IO_PORT}/`,
   { transports: ['websocket'] }
 )

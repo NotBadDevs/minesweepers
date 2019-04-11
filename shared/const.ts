@@ -1,1 +1,1 @@
-export const SOCKET_IO_PORT = 3000
+export const SOCKET_IO_PORT = 3111
