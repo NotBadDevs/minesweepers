@@ -1,6 +1,6 @@
 export const gameOverMessages = [
   'Aww snap!',
-  "C'mon, there shouldn't have been a bomb here!",
+  'C\'mon, there shouldn\'t have been a bomb here!',
   'Better luck next time!',
   'Use your intuition next time!',
   'Game over!',
@@ -8,14 +8,15 @@ export const gameOverMessages = [
   'You were a bad minesweeper.',
   'WHAT!?',
   'You were close...',
-  "I'm crying right now.",
+  'I\'m crying right now.',
   'NOOOOOOOOOOOOOOOOOOOOOOOOO!',
-  "WHOOPS",
-  "Missclicked.",
-  "Missclick",
-  "HAHA",
-  "Not epic",
-  "I expected You to win..."
+  'WHOOPS',
+  'Missclicked.',
+  'Missclick',
+  'HAHA',
+  'Not epic',
+  'I expected You to win...',
+  'I can\'t believe that you\'ve just lost!'
 ]
 
 export const gameWinMessages = [
@@ -34,5 +35,10 @@ export const gameWinMessages = [
   'Win Game',
   'Game Win',
   'You won!',
-  'Win! Win! Win!'
+  'Win! Win! Win!',
+  '200IQ play!',
+  'Splendid!',
+  'Oh, you won?',
+  'Nice!',
+  'Congratulations!'
 ]
