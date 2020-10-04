@@ -1,32 +1,29 @@
 import * as React from 'react'
-import { inject, observer } from 'mobx-react'
-import { compose, lifecycle, withStateHandlers } from 'recompose'
+import { useEffect } from 'react'
+import { observer } from 'mobx-react'
 
 import { GameComponent } from './GameComponent'
 import { Nickname } from './Nickname'
 import { UserList } from './UserList'
 import { service } from './service'
+import { useStore } from './hooks'
 
-const app = ({ store }) => (
-  <div className="app">
-    <h1>
-      Minesweepers <span style={{ fontSize: '10px', color: 'red' }}>ALPHA</span>
-    </h1>
-    <GameComponent game={store.game} />
-    <Nickname />
-    <UserList />
-  </div>
-)
+export const App = observer(() => {
+  const store = useStore()
 
-export const App = compose(
-  inject(store => ({ store })),
-  lifecycle({
-    componentDidMount() {
-      const { store } = this.props
-      service.on('game', game => {
-        store.game.set(game)
-      })
-    }
-  }),
-  observer
-)(app)
+  useEffect(() => {
+    service.on('game', (game) => store.game.set(game))
+  }, [])
+
+  return (
+    <div className="app">
+      <h1>
+        Minesweepers
+        <span style={{ fontSize: '10px', color: 'red' }}>ALPHA</span>
+      </h1>
+      <GameComponent game={store.game} />
+      <Nickname />
+      <UserList />
+    </div>
+  )
+})

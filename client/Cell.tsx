@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { observer } from 'mobx-react'
-import { compose } from 'recompose'
 
 const numberColors = [
   'transparent',
@@ -14,7 +13,7 @@ const numberColors = [
   '#808080'
 ]
 
-const cell = ({ cell, onClick, onContextMenu }) => {
+export const Cell = observer(({ cell, onClick, onContextMenu }) => {
   const type = cell.isFlag
     ? 'flag'
     : !cell.isOpen
@@ -28,10 +27,10 @@ const cell = ({ cell, onClick, onContextMenu }) => {
     <div
       className={`cell ${cell.isOpen ? 'open' : ''}`}
       style={{
-        color: type === 'number' ? numberColors[cell.value] : 'inherit'
+        color: type === 'number' ? numberColors[cell.value] : 'inherit',
       }}
       onClick={onClick}
-      onContextMenu={e => {
+      onContextMenu={(e) => {
         onContextMenu()
         e.preventDefault()
       }}
@@ -39,7 +38,7 @@ const cell = ({ cell, onClick, onContextMenu }) => {
       {cell.isOpen &&
         {
           bomb: <span>💣</span>,
-          number: <React.Fragment>{cell.value}</React.Fragment>
+          number: <React.Fragment>{cell.value}</React.Fragment>,
         }[type]}
       {!cell.isOpen &&
         {
@@ -47,6 +46,4 @@ const cell = ({ cell, onClick, onContextMenu }) => {
         }[type]}
     </div>
   )
-}
-
-export const Cell = compose(observer)(cell)
+})
