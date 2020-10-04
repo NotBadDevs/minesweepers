@@ -11,7 +11,7 @@
 
 # misc
 **/dist
-.cache
+.parcel-cache
 .env
 .DS_Store
 .vscode
