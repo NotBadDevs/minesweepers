@@ -10,14 +10,28 @@ export const Nickname = () => {
     sessionStorage.setItem('nick', nick)
     service.emit('changeNick', { nick })
   }, [])
+
+  const storeCurrentNick = useCallback(() => storeNick(nick), [nick])
+
   const handleChange = useCallback((e) => {
     setNick(e.target.value)
   }, [])
 
+  const handleKeyPress = useCallback(
+    (e) => {
+      if (e.key === 'Enter') {
+        storeCurrentNick()
+      }
+    },
+    [storeCurrentNick]
+  )
+
   useEffect(() => {
     const nick = sessionStorage.getItem('nick')
-    setNick(nick)
-    service.on('connect', () => storeNick(nick))
+    if (nick) {
+      setNick(nick)
+      service.on('connect', () => storeNick(nick))
+    }
   }, [])
 
   return (
@@ -27,9 +41,10 @@ export const Nickname = () => {
         placeholder="Your nickname"
         value={nick}
         onChange={handleChange}
+        onKeyPress={handleKeyPress}
         maxLength={20}
       />
-      <button onClick={() => storeNick(nick)}>Set</button>
+      <button onClick={storeCurrentNick}>Set</button>
     </div>
   )
 }
