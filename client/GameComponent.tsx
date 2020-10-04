@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { observer } from 'mobx-react'
-import { compose } from 'recompose'
 
 import './style.css'
 import { gameOverMessages, gameWinMessages } from './const'
@@ -9,7 +8,7 @@ import { Cell } from './Cell'
 
 const cellSize = 31
 
-const gameComponent = ({ game }) => {
+export const GameComponent = observer(({ game }) => {
   const elements = []
   for (let y = 0; y < game.height; y++)
     for (let x = 0; x < game.width; x++) {
@@ -33,7 +32,7 @@ const gameComponent = ({ game }) => {
         className="game noselect"
         style={{
           width: cellSize * game.width,
-          height: cellSize * game.height
+          height: cellSize * game.height,
         }}
       >
         {elements}
@@ -50,6 +49,4 @@ const gameComponent = ({ game }) => {
       )}
     </React.Fragment>
   )
-}
-
-export const GameComponent = compose(observer)(gameComponent)
+})
