@@ -14,9 +14,9 @@
     "build": "tsc"
   },
   "dependencies": {
-    "micro": "^9.3.3",
-    "ramda": "^0.26.1",
-    "socket.io": "^2.2.0",
-    "bind-decorator": "^1.0.11"
+    "micro": "9.3.4",
+    "ramda": "0.27.1",
+    "socket.io": "2.3.0",
+    "bind-decorator": "1.0.11"
   }
 }
